@@ -6,11 +6,18 @@ import (
 	"path/filepath"
 )
 
+var c Configo
+
 // Configo struct to be used as options
 type Configo struct {
 	environment string
 	format      string
 	path        string
+}
+
+// SetEnvironment - set env var for deployment environment
+func SetEnvironment(envar string) {
+	c.SetEnvironment(envar)
 }
 
 // SetEnvironment - set env var for deployment environment
@@ -20,13 +27,28 @@ func (c *Configo) SetEnvironment(envar string) {
 }
 
 // SetFormat - set format of config file (.json)
+func SetFormat(format string) {
+	c.SetFormat(format)
+}
+
+// SetFormat - set format of config file (.json)
 func (c *Configo) SetFormat(format string) {
 	c.format = format
 }
 
 // SetPath - set path of config file
+func SetPath(path string) {
+	c.SetPath(path)
+}
+
+// SetPath - set path of config file
 func (c *Configo) SetPath(path string) {
 	c.path = path
+}
+
+// Source config file
+func Source() (map[string]interface{}, error) {
+	return c.Source()
 }
 
 // Source config file
