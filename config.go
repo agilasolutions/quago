@@ -13,6 +13,8 @@ type Configo struct {
 	environment string
 	format      string
 	path        string
+
+	config map[string]interface{}
 }
 
 // SetEnvironment - set env var for deployment environment
@@ -47,12 +49,12 @@ func (c *Configo) SetPath(path string) {
 }
 
 // Source config file
-func Source() (map[string]interface{}, error) {
+func Source() (*Configo, error) {
 	return c.Source()
 }
 
 // Source config file
-func (c *Configo) Source() (map[string]interface{}, error) {
+func (c *Configo) Source() (*Configo, error) {
 
 	path, _ := os.Getwd()
 	file, err := os.Open(filepath.Join(path, c.path, c.environment+c.format))
@@ -68,7 +70,13 @@ func (c *Configo) Source() (map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	return config, nil
+	c.config = config
+	return c, nil
+}
+
+//Get - get value from config
+func (c *Configo) Get(key string) string {
+	return c.config[key].(string)
 }
 
 func getEnv(key, def string) string {

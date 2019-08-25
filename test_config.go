@@ -8,5 +8,5 @@ func Init() {
 	SetFormat(".json")
 	SetPath("")
 	config, _ := Source()
-	fmt.Println(config)
+	fmt.Println(config.Get("redisURL"))
 }
