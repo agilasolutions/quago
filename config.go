@@ -74,7 +74,7 @@ func (c *Configo) Source() (*Configo, error) {
 	return c, nil
 }
 
-//Get - get value from config
+//Get - get value from config via the key as parameter
 func (c *Configo) Get(key string) string {
 	return c.config[key].(string)
 }
