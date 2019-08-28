@@ -76,7 +76,11 @@ func (c *Configo) Source() (*Configo, error) {
 
 //Get - get value from config via the key as parameter
 func (c *Configo) Get(key string) string {
-	return c.config[key].(string)
+	if val, ok := c.config[key]; ok {
+		return val.(string)
+	}
+
+	return ""
 }
 
 func getEnv(key, def string) string {
