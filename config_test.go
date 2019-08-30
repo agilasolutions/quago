@@ -1,7 +1,9 @@
 package configo
 
 import (
+	"fmt"
 	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -15,17 +17,19 @@ func TestGet(t *testing.T) {
 	//create test dev config
 	err := createTestConfig()
 	if err != nil {
+		t.Error("Error Creating File")
 	}
-	defer deleteTestConfig()
+	defer deleteTestConfig(t)
 	//destroy test dev config
 	config, _ := Source()
 	if config.Get("testData") != "Hello World" {
-
+		t.Error("Error configuration value")
 	}
 }
 
 func createTestConfig() error {
-	testData := []byte("{\"testData\":\"Hello World\"")
+	fmt.Println("Creating test config...")
+	testData := []byte("{\"testData\":\"Hello World\"}")
 
 	// the WriteFile method returns an error if unsuccessful
 	err := ioutil.WriteFile("dev.json", testData, 0777)
@@ -37,6 +41,10 @@ func createTestConfig() error {
 	return nil
 }
 
-func deleteTestConfig() {
+func deleteTestConfig(t *testing.T) {
 
+	err := os.Remove("dev.json")
+	if err != nil {
+		t.Error("Error Deleting File")
+	}
 }
