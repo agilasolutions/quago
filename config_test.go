@@ -1,4 +1,4 @@
-package configo
+package quago
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-//Init - Test run configo
+//Init - Test run quago
 func TestGet(t *testing.T) {
 	//setup config options
 	SetEnvironment("")

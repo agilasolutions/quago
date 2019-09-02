@@ -1,3 +1,3 @@
-module github.com/agilasolutions/configo
+module github.com/agilasolutions/quago
 
 go 1.12

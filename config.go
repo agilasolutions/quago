@@ -1,4 +1,4 @@
-package configo
+package quago
 
 import (
 	"encoding/json"
@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 )
 
-var c Configo
+var c Quago
 
-// Configo struct to be used as options
-type Configo struct {
+// Quago struct to be used as options
+type Quago struct {
 	environment string
 	format      string
 	path        string
@@ -23,7 +23,7 @@ func SetEnvironment(envar string) {
 }
 
 // SetEnvironment - set env var for deployment environment
-func (c *Configo) SetEnvironment(envar string) {
+func (c *Quago) SetEnvironment(envar string) {
 	env := getEnv(envar, "dev")
 	c.environment = env
 }
@@ -34,7 +34,7 @@ func SetFormat(format string) {
 }
 
 // SetFormat - set format of config file (.json)
-func (c *Configo) SetFormat(format string) {
+func (c *Quago) SetFormat(format string) {
 	c.format = format
 }
 
@@ -44,17 +44,17 @@ func SetPath(path string) {
 }
 
 // SetPath - set path of config file
-func (c *Configo) SetPath(path string) {
+func (c *Quago) SetPath(path string) {
 	c.path = path
 }
 
 // Source config file
-func Source() (*Configo, error) {
+func Source() (*Quago, error) {
 	return c.Source()
 }
 
 // Source config file
-func (c *Configo) Source() (*Configo, error) {
+func (c *Quago) Source() (*Quago, error) {
 
 	path, _ := os.Getwd()
 	file, err := os.Open(filepath.Join(path, c.path, c.environment+c.format))
@@ -75,7 +75,7 @@ func (c *Configo) Source() (*Configo, error) {
 }
 
 //Get - get value from config via the key as parameter
-func (c *Configo) Get(key string) string {
+func (c *Quago) Get(key string) string {
 	if val, ok := c.config[key]; ok {
 		return val.(string)
 	}
