@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-var c Quago
+var c = new(Quago)
 
 // Quago struct to be used as options
 type Quago struct {
@@ -19,42 +19,40 @@ type Quago struct {
 
 // SetEnvironment - set env var for deployment environment
 func SetEnvironment(envar string) {
-	c.SetEnvironment(envar)
+	c.setEnvironment(envar)
 }
 
-// SetEnvironment - set env var for deployment environment
-func (c *Quago) SetEnvironment(envar string) {
+func (c *Quago) setEnvironment(envar string) {
 	env := getEnv(envar, "dev")
 	c.environment = env
 }
 
 // SetFormat - set format of config file (.json)
 func SetFormat(format string) {
-	c.SetFormat(format)
+	c.setFormat(format)
 }
 
-// SetFormat - set format of config file (.json)
-func (c *Quago) SetFormat(format string) {
+func (c *Quago) setFormat(format string) {
 	c.format = format
 }
 
 // SetPath - set path of config file
 func SetPath(path string) {
-	c.SetPath(path)
+	c.setPath(path)
 }
 
 // SetPath - set path of config file
-func (c *Quago) SetPath(path string) {
+func (c *Quago) setPath(path string) {
 	c.path = path
 }
 
 // Source config file
 func Source() (*Quago, error) {
-	return c.Source()
+	return c.source()
 }
 
 // Source config file
-func (c *Quago) Source() (*Quago, error) {
+func (c *Quago) source() (*Quago, error) {
 
 	path, _ := os.Getwd()
 	file, err := os.Open(filepath.Join(path, c.path, c.environment+c.format))
